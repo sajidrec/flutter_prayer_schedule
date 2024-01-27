@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   List<String> waqthNameList = [];
 
   String country = "N/A", city = "N/A", earthStateLocation = "N/A";
+  String dateOfData = "";
 
   String screenMsg = "Nothing to show here";
 
@@ -86,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                               city = "N/A";
                               earthStateLocation = "N/A";
                               country = "N/A";
+                              dateOfData = "";
                               setState(() {});
                             } else {
                               schedule = data["items"][0];
@@ -102,6 +104,8 @@ class _HomePageState extends State<HomePage> {
                               if (country.isEmpty) {
                                 country = "N/A";
                               }
+                              dateOfData =
+                                  schedule[waqthNameList[0]].toString();
                               setState(() {});
                             }
                           } else {
@@ -143,6 +147,20 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              (dateOfData.isNotEmpty)
+                  ? Center(
+                      child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          child: Text(
+                            "Showing result for ${dateOfData}",
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
+                          )),
+                    )
+                  : const SizedBox.shrink(),
               const SizedBox(
                 height: 3,
               ),

@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Map<String, dynamic> schedule = {};
   List<String> waqthNameList = [];
 
-  String city = "N/A", earthStateLocation = "N/A", country = "N/A";
+  String country = "N/A", city = "N/A", earthStateLocation = "N/A";
 
   String screenMsg = "Nothing to show here";
 
@@ -88,8 +88,17 @@ class _HomePageState extends State<HomePage> {
                               schedule = data["items"][0];
                               waqthNameList = schedule.keys.toList();
                               city = data["city"];
+                              if (city.isEmpty) {
+                                city = "N/A";
+                              }
                               earthStateLocation = data["state"];
+                              if (earthStateLocation.isEmpty) {
+                                earthStateLocation = "N/A";
+                              }
                               country = data["country"];
+                              if (country.isEmpty) {
+                                country = "N/A";
+                              }
                               setState(() {});
                             }
                           } else {
@@ -106,14 +115,33 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 3,
               ),
-              Row(
-                children: [
-                  Text("Country : $country"),
-                  const Spacer(),
-                  Text("City : $city"),
-                  const Spacer(),
-                  Text("State : $earthStateLocation"),
-                ],
+              SizedBox(
+                width: double.infinity,
+                child: Wrap(
+                  alignment: WrapAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Text(
+                        "Country : $country",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Text("City : $city",
+                          style: const TextStyle(fontSize: 16)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Text("State : $earthStateLocation",
+                          style: const TextStyle(fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 3,
               ),
               (waqthNameList.isNotEmpty)
                   ? ListView.builder(
@@ -124,12 +152,24 @@ class _HomePageState extends State<HomePage> {
                         if (index == 0) {
                           return const SizedBox.shrink();
                         }
-                        return ListTile(
-                          title: Text(
-                            waqthNameList[index].toString().toUpperCase(),
-                          ),
-                          trailing: Text(
-                            schedule[waqthNameList[index]].toString(),
+                        return Card(
+                          elevation: 3,
+                          color: Colors.green.shade400,
+                          child: ListTile(
+                            title: Text(
+                              waqthNameList[index].toString().toUpperCase(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            trailing: Text(
+                              schedule[waqthNameList[index]].toString(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         );
                       },

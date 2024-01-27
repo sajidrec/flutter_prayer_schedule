@@ -147,20 +147,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              (dateOfData.isNotEmpty)
-                  ? Center(
-                      child: Container(
-                          alignment: Alignment.center,
-                          width: double.infinity,
-                          child: Text(
-                            "Showing result for ${dateOfData}",
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
-                          )),
-                    )
-                  : const SizedBox.shrink(),
               const SizedBox(
                 height: 3,
               ),
@@ -200,6 +186,23 @@ class _HomePageState extends State<HomePage> {
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w400),
                     ),
+              const SizedBox(
+                height: 3,
+              ),
+              (dateOfData.isNotEmpty)
+                  ? Center(
+                      child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          child: Text(
+                            "Showing result for ${dateOfData}",
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
+                          )),
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),

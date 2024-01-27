@@ -18,6 +18,8 @@ class _HomePageState extends State<HomePage> {
   Map<String, dynamic> schedule = {};
   List<String> waqthNameList = [];
 
+  String city = "N/A", earthStateLocation = "N/A", country = "N/A";
+
   String screenMsg = "Nothing to show here";
 
   @override
@@ -30,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 3,
         title: const Text(
           "Prayer Time",
           style: TextStyle(fontWeight: FontWeight.w400),
@@ -76,11 +79,17 @@ class _HomePageState extends State<HomePage> {
                             if (data["status_description"] != "Success.") {
                               waqthNameList = [];
                               screenMsg =
-                                  "No information for this location found 😓";
+                                  "No information found for this location 😓";
+                              city = "N/A";
+                              earthStateLocation = "N/A";
+                              country = "N/A";
                               setState(() {});
                             } else {
                               schedule = data["items"][0];
                               waqthNameList = schedule.keys.toList();
+                              city = data["city"];
+                              earthStateLocation = data["state"];
+                              country = data["country"];
                               setState(() {});
                             }
                           } else {
@@ -94,10 +103,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              // const SizedBox(
-              //   height: 6,
-              // ),
-
+              const SizedBox(
+                height: 3,
+              ),
+              Row(
+                children: [
+                  Text("Country : $country"),
+                  const Spacer(),
+                  Text("City : $city"),
+                  const Spacer(),
+                  Text("State : $earthStateLocation"),
+                ],
+              ),
               (waqthNameList.isNotEmpty)
                   ? ListView.builder(
                       shrinkWrap: true,

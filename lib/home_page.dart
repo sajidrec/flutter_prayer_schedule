@@ -86,7 +86,6 @@ class _HomePageState extends State<HomePage> {
                           } else {
                             screenMsg = "Something went wrong";
                             setState(() {});
-                            //TODO: implement fetching fails
                           }
                         }
                       },

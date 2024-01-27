@@ -45,6 +45,9 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(
+                height: 8,
+              ),
               Form(
                 key: _globalSearchKey,
                 child: TextFormField(

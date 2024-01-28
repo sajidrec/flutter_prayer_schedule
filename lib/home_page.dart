@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:prayer_time/getCurrentTimeHelper.dart';
+import 'package:prayer_time/get_current_time_helper.dart';
 import 'package:prayer_time/request_helper.dart';
 import 'package:flag/flag.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:prayer_time/getCurrentTimeHelper.dart';
 import 'package:prayer_time/request_helper.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +21,8 @@ class _HomePageState extends State<HomePage> {
 
   String countryCode = "N/A", city = "N/A", earthStateLocation = "N/A";
   String dateOfData = "";
+
+  String _currentTime = "";
 
   String screenMsg = "Nothing to show here";
 
@@ -88,10 +91,13 @@ class _HomePageState extends State<HomePage> {
                               earthStateLocation = "N/A";
                               countryCode = "N/A";
                               dateOfData = "";
+                              _currentTime = "";
+
                               setState(() {});
                             } else {
                               schedule = data["items"][0];
                               waqthNameList = schedule.keys.toList();
+
                               city = data["city"];
                               if (city.isEmpty) {
                                 city = "N/A";
@@ -106,6 +112,16 @@ class _HomePageState extends State<HomePage> {
                               }
                               dateOfData =
                                   schedule[waqthNameList[0]].toString();
+
+                              final getTime = await getCurrentTime(
+                                  latitude: data["latitude"].toString(),
+                                  longitude: data["longitude"]);
+
+                              _currentTime =
+                                  jsonDecode(getTime.body)["dateTime"]
+                                      .toString()
+                                      .trim();
+
                               setState(() {});
                             }
                           } else {
@@ -197,10 +213,19 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             "Showing result for $dateOfData",
                             style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
                           )),
+                    )
+                  : const SizedBox.shrink(),
+              (_currentTime.isNotEmpty)
+                  ? Text(
+                      "Current time in $city is $_currentTime",
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
+                      ),
                     )
                   : const SizedBox.shrink(),
             ],

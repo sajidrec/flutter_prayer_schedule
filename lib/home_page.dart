@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prayer_time/getCurrentTimeHelper.dart';
 import 'package:prayer_time/request_helper.dart';
+import 'package:flag/flag.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -99,15 +100,17 @@ class _HomePageState extends State<HomePage> {
                               schedule = data["items"][0];
                               waqthNameList = schedule.keys.toList();
 
-                              city = data["city"];
+                              city = data["city"].toString().toUpperCase();
                               if (city.isEmpty) {
                                 city = "N/A";
                               }
-                              earthStateLocation = data["state"];
+                              earthStateLocation =
+                                  data["state"].toString().toUpperCase();
                               if (earthStateLocation.isEmpty) {
                                 earthStateLocation = "N/A";
                               }
-                              countryCode = data["country_code"];
+                              countryCode =
+                                  data["country_code"].toString().toUpperCase();
                               if (countryCode.isEmpty) {
                                 countryCode = "N/A";
                               }
@@ -146,9 +149,27 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(3.0),
-                      child: Text(
-                        "Country : $countryCode",
-                        style: const TextStyle(fontSize: 16),
+                      child: Wrap(
+                        children: [
+                          Text(
+                            "Country : $countryCode",
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          (countryCode != "N/A")
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 3),
+                                  child: Flag.fromCode(
+                                    FlagsCode.values.byName(countryCode),
+                                    // Use FlagsCode.values.byName to access the enum value
+                                    height: 18,
+                                    width: 18,
+                                    fit: BoxFit.fill,
+                                    flagSize: FlagSize.size_1x1,
+                                    borderRadius: 25,
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                        ],
                       ),
                     ),
                     Padding(
@@ -222,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                   : const SizedBox.shrink(),
               (_currentTime.isNotEmpty)
                   ? Text(
-                      "Local time in ${(city == "N/A") ? countryCode : city} when data is fetched ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
+                      "Local time in ${(city == "N/A") ? countryCode : city} when data was fetched ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

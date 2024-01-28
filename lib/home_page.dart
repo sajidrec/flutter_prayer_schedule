@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Map<String, dynamic> schedule = {};
   List<String> waqthNameList = [];
 
-  String country = "N/A", city = "N/A", earthStateLocation = "N/A";
+  String countryCode = "N/A", city = "N/A", earthStateLocation = "N/A";
   String dateOfData = "";
 
   String screenMsg = "Nothing to show here";
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                                   "No information found for this location 😓";
                               city = "N/A";
                               earthStateLocation = "N/A";
-                              country = "N/A";
+                              countryCode = "N/A";
                               dateOfData = "";
                               setState(() {});
                             } else {
@@ -100,9 +100,9 @@ class _HomePageState extends State<HomePage> {
                               if (earthStateLocation.isEmpty) {
                                 earthStateLocation = "N/A";
                               }
-                              country = data["country"];
-                              if (country.isEmpty) {
-                                country = "N/A";
+                              countryCode = data["country_code"];
+                              if (countryCode.isEmpty) {
+                                countryCode = "N/A";
                               }
                               dateOfData =
                                   schedule[waqthNameList[0]].toString();
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: Text(
-                        "Country : $country",
+                        "Country : $countryCode",
                         style: const TextStyle(fontSize: 16),
                       ),
                     ),
@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.center,
                           width: double.infinity,
                           child: Text(
-                            "Showing result for ${dateOfData}",
+                            "Showing result for $dateOfData",
                             style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,

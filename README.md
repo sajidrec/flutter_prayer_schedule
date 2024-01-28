@@ -4,7 +4,9 @@ Search prayer time for specific location
 
 ## Some info
 
-Data is fetching from https://muslimsalat.com
+Schedule data fetching from https://muslimsalat.com
 
-As it's not commercial project I'm will not hide api key from the project.
+Current time data fetching from https://timeapi.io
+
+As it's not a commercial project I'll not hide api key from the project.
 

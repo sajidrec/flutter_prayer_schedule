@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
       TextEditingController();
 
   Map<String, dynamic> schedule = {};
-  List<String> waqthNameList = [];
+  List<String> waqtNameList = [];
 
   String countryCode = "N/A", city = "N/A", earthStateLocation = "N/A";
   String dateOfData = "";
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                           if (res.statusCode == 200) {
                             Map<String, dynamic> data = jsonDecode(res.body);
                             if (data["status_description"] != "Success.") {
-                              waqthNameList = [];
+                              waqtNameList = [];
                               screenMsg =
                                   "No information found for this location 😓";
                               city = "N/A";
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                               setState(() {});
                             } else {
                               schedule = data["items"][0];
-                              waqthNameList = schedule.keys.toList();
+                              waqtNameList = schedule.keys.toList();
 
                               city = data["city"].toString().toUpperCase();
                               if (city.isEmpty) {
@@ -113,8 +113,7 @@ class _HomePageState extends State<HomePage> {
                               if (countryCode.isEmpty) {
                                 countryCode = "N/A";
                               }
-                              dateOfData =
-                                  schedule[waqthNameList[0]].toString();
+                              dateOfData = schedule[waqtNameList[0]].toString();
 
                               final getTime = await getCurrentTime(
                                   latitude: data["latitude"].toString(),
@@ -187,11 +186,11 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 3,
               ),
-              (waqthNameList.isNotEmpty)
+              (waqtNameList.isNotEmpty)
                   ? ListView.builder(
                       shrinkWrap: true,
                       primary: false,
-                      itemCount: waqthNameList.length,
+                      itemCount: waqtNameList.length,
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return const SizedBox.shrink();
@@ -201,18 +200,31 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.green.shade400,
                           child: ListTile(
                             title: Text(
-                              waqthNameList[index].toString().toUpperCase(),
+                              waqtNameList[index].toString().toUpperCase(),
                               style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                            trailing: Text(
-                              schedule[waqthNameList[index]].toString(),
-                              style: const TextStyle(
+                            trailing: Wrap(
+                              children: [
+                                Text(
+                                  schedule[waqtNameList[index]].toString(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 3,
+                                ),
+                                const Icon(
+                                  Icons.alarm_rounded,
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
+                                ),
+                              ],
                             ),
                           ),
                         );

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prayer_time/getCurrentTimeHelper.dart';
 import 'package:prayer_time/request_helper.dart';
 
@@ -221,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                   : const SizedBox.shrink(),
               (_currentTime.isNotEmpty)
                   ? Text(
-                      "Current time in $city is $_currentTime",
+                      "Current time in ${(city == "N/A") ? countryCode : city} is ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

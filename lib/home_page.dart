@@ -222,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                   : const SizedBox.shrink(),
               (_currentTime.isNotEmpty)
                   ? Text(
-                      "Current time in ${(city == "N/A") ? countryCode : city} is ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
+                      "Local time in ${(city == "N/A") ? countryCode : city} when data is fetched ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

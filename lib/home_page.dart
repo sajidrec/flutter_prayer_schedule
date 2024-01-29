@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> {
                   : const SizedBox.shrink(),
               (_currentTime.isNotEmpty)
                   ? Text(
-                      "Local time in ${(city == "N/A") ? ((countryCode != "N/A") ? countryCode : "this stateless territory") : city} when data was fetched ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
+                      "Local time in ${_textEditingControllerSearch.text.toString().trim().toUpperCase()} when data was fetched ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

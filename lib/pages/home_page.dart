@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prayer_time/get_current_time_helper.dart';
+import 'package:prayer_time/pages/about_app_page.dart';
 import 'package:prayer_time/pages/search_history_page.dart';
 import 'package:prayer_time/request_helper.dart';
 import 'package:flag/flag.dart';
@@ -146,7 +147,13 @@ class _HomePageState extends State<HomePage> {
                   height: 5,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutAppPage(),
+                        ));
+                  },
                   child: SizedBox(
                     width: double.infinity,
                     child: Padding(

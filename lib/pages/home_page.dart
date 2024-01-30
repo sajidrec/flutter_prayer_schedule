@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prayer_time/get_current_time_helper.dart';
 import 'package:prayer_time/request_helper.dart';
 import 'package:flag/flag.dart';
+import '../schedule_element_struct.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +29,12 @@ class _HomePageState extends State<HomePage> {
 
   String screenMsg = "Nothing to show here";
 
+  List<List<ScheduleElementStruct>> searchHistoryList = [
+    [],
+  ];
+
+  List<ScheduleElementStruct> waqtT = [];
+
   @override
   void dispose() {
     _textEditingControllerSearch.dispose();
@@ -38,12 +46,192 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
+        centerTitle: true,
         title: const Text(
           "Prayer Time",
           style: TextStyle(fontWeight: FontWeight.w400),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Are you sure you want to exit?"),
+                  actions: [
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            exit(0);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.red.shade400),
+                          ),
+                          child: const Text(
+                            "YES",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.green.shade400),
+                          ),
+                          child: const Text(
+                            "NO",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.exit_to_app_rounded),
+          ),
+        ],
         backgroundColor: Colors.green.shade400,
         foregroundColor: Colors.white,
+      ),
+      drawer: Drawer(
+        child: SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 80),
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Card(
+                        elevation: 3,
+                        color: Colors.green.shade400,
+                        child: const Padding(
+                          padding: EdgeInsets.all(9.0),
+                          child: Text(
+                            "Search History",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Card(
+                        elevation: 3,
+                        color: Colors.green.shade400,
+                        child: const Padding(
+                          padding: EdgeInsets.all(9.0),
+                          child: Text(
+                            "About",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Are you sure you want to exit?"),
+                        actions: [
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  exit(0);
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      Colors.red.shade400),
+                                ),
+                                child: const Text(
+                                  "YES",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      Colors.green.shade400),
+                                ),
+                                child: const Text(
+                                  "NO",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Card(
+                        elevation: 3,
+                        color: Colors.green.shade400,
+                        child: const Padding(
+                          padding: EdgeInsets.all(9.0),
+                          child: Text(
+                            "Exit",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
@@ -193,8 +381,29 @@ class _HomePageState extends State<HomePage> {
                       itemCount: waqtNameList.length,
                       itemBuilder: (context, index) {
                         if (index == 0) {
+                          waqtT.add(
+                            ScheduleElementStruct(
+                                name: _textEditingControllerSearch.text
+                                    .toString()
+                                    .trim()
+                                    .toUpperCase(),
+                                time: dateOfData),
+                          );
                           return const SizedBox.shrink();
                         }
+
+                        waqtT.add(
+                          ScheduleElementStruct(
+                            name: waqtNameList[index].toString().toUpperCase(),
+                            time: schedule[waqtNameList[index]].toString(),
+                          ),
+                        );
+
+                        if (index + 1 == waqtNameList.length) {
+                          searchHistoryList.insert(0, waqtT);
+                          waqtT = [];
+                        }
+
                         return Card(
                           elevation: 3,
                           color: Colors.green.shade400,

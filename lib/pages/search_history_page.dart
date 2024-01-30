@@ -28,33 +28,39 @@ class SearchHistoryPage extends StatelessWidget {
           primary: false,
           itemCount: searchHistoryList.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          // title: Text("Hehe"),
-                          content: SizedBox(
-                            width: MediaQuery.sizeOf(context).width / 1.2,
-                            child: ListView.builder(
-                              itemCount: searchHistoryList[index].length,
-                              itemBuilder: (context, indexTwo) => ListTile(
-                                title: Text(
-                                    searchHistoryList[index][indexTwo].name),
-                                subtitle: Text(
-                                    searchHistoryList[index][indexTwo].time),
+            return Visibility(
+              visible: (searchHistoryList[index].isNotEmpty &&
+                  searchHistoryList[index][0].name.isNotEmpty),
+              child: ListTile(
+                title: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: SizedBox(
+                              width: MediaQuery.sizeOf(context).width / 1.2,
+                              child: ListView.builder(
+                                itemCount: searchHistoryList[index].length,
+                                itemBuilder: (context, indexTwo) => ListTile(
+                                  title: Text(
+                                      searchHistoryList[index][indexTwo].name),
+                                  subtitle: Text(
+                                      searchHistoryList[index][indexTwo].time),
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Text(searchHistoryList[index][0].name),
+                          );
+                        },
+                      );
+                    },
+                    child: (searchHistoryList[index].isNotEmpty &&
+                            searchHistoryList[index][0].name.isNotEmpty)
+                        ? Text(searchHistoryList[index][0].name)
+                        : const Spacer(),
+                  ),
                 ),
               ),
             );

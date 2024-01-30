@@ -14,7 +14,7 @@ class PrayerTimeApp extends StatelessWidget {
         splash: const SplashScreen(),
         backgroundColor: Colors.green.shade400,
         nextScreen: const HomePage(),
-        duration: 1500,
+        duration: 0,
       ),
     );
   }

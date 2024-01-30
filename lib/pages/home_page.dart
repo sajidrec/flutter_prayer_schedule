@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prayer_time/get_current_time_helper.dart';
+import 'package:prayer_time/pages/search_history_page.dart';
 import 'package:prayer_time/request_helper.dart';
 import 'package:flag/flag.dart';
 import '../schedule_element_struct.dart';
@@ -109,7 +110,16 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchHistoryPage(
+                          searchHistoryList: searchHistoryList,
+                        ),
+                      ),
+                    );
+                  },
                   child: SizedBox(
                     width: double.infinity,
                     child: Padding(

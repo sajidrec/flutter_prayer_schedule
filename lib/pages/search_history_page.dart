@@ -52,13 +52,47 @@ class SearchHistoryPage extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            actions: [
+                              SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Close")))
+                            ],
                           );
                         },
                       );
                     },
                     child: (searchHistoryList[index].isNotEmpty &&
                             searchHistoryList[index][0].name.isNotEmpty)
-                        ? Text(searchHistoryList[index][0].name)
+                        ? Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: searchHistoryList[index][0].name,
+                                  ),
+                                  const TextSpan(text: "\n"),
+                                  TextSpan(
+                                    text: searchHistoryList[index][0].time,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
                         : const Spacer(),
                   ),
                 ),

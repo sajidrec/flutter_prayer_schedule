@@ -59,14 +59,20 @@ class SearchHistoryPage extends StatelessWidget {
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
                                         Colors.red.shade400),
-                                    foregroundColor: const MaterialStatePropertyAll(
+                                    foregroundColor:
+                                        const MaterialStatePropertyAll(
                                       Colors.white,
                                     ),
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Text("Close",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500),),
+                                  child: const Text(
+                                    "Close",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                               )
                             ],

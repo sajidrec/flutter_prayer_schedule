@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prayer_time/get_current_time_helper.dart';
@@ -7,6 +6,7 @@ import 'package:prayer_time/pages/about_app_page.dart';
 import 'package:prayer_time/pages/search_history_page.dart';
 import 'package:prayer_time/request_helper.dart';
 import 'package:flag/flag.dart';
+import '../exit_popup_msg.dart';
 import '../schedule_element_struct.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,47 +56,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Are you sure you want to exit?"),
-                  actions: [
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            exit(0);
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.red.shade400),
-                          ),
-                          child: const Text(
-                            "YES",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.green.shade400),
-                          ),
-                          child: const Text(
-                            "NO",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
+              exitPopupMsg(context);
             },
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
@@ -181,47 +141,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Are you sure you want to exit?"),
-                        actions: [
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  exit(0);
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      Colors.red.shade400),
-                                ),
-                                child: const Text(
-                                  "YES",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      Colors.green.shade400),
-                                ),
-                                child: const Text(
-                                  "NO",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
+                    exitPopupMsg(context);
                   },
                   child: SizedBox(
                     width: double.infinity,

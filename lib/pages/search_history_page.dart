@@ -54,12 +54,21 @@ class SearchHistoryPage extends StatelessWidget {
                             ),
                             actions: [
                               SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text("Close")))
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Colors.red.shade400),
+                                    foregroundColor: const MaterialStatePropertyAll(
+                                      Colors.white,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Close",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500),),
+                                ),
+                              )
                             ],
                           );
                         },

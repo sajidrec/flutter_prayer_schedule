@@ -274,9 +274,18 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(3.0),
                       child: Wrap(
                         children: [
-                          Text(
-                            "Country : $countryCode",
-                            style: const TextStyle(fontSize: 16),
+                          Wrap(
+                            children: [
+                              const Text(
+                                "Country : ",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                countryCode,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
                           (countryCode != "N/A")
                               ? Padding(
@@ -297,13 +306,35 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(3.0),
-                      child: Text("City : $city",
-                          style: const TextStyle(fontSize: 16)),
+                      child: Wrap(children: [
+                        const Text(
+                          "City : ",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          city,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(3.0),
-                      child: Text("State : $earthStateLocation",
-                          style: const TextStyle(fontSize: 16)),
+                      child: Wrap(
+                        children: [
+                          const Text(
+                            "State : ",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            earthStateLocation,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

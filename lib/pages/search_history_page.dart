@@ -35,6 +35,11 @@ class SearchHistoryPage extends StatelessWidget {
                 title: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -101,7 +106,15 @@ class SearchHistoryPage extends StatelessWidget {
                                     text: searchHistoryList[index][0].time,
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey.shade600,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                  const TextSpan(text: "\n"),
+                                  TextSpan(
+                                    text: "Tap to get info",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey.shade500,
                                     ),
                                   ),
                                 ],

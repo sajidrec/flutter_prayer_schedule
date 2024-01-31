@@ -423,8 +423,8 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             "Showing result for $dateOfData",
                             style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
                             ),
                           )),
                     )
@@ -433,8 +433,8 @@ class _HomePageState extends State<HomePage> {
                   ? Text(
                       "Local time in ${_textEditingControllerSearch.text.toString().trim().toUpperCase()} when data was fetched ${DateFormat.yMMMMEEEEd().add_jms().format(DateTime.parse(_currentTime))}",
                       style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
                       ),
                     )
                   : const SizedBox.shrink(),
